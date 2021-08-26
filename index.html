@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creating Bank using javaScript</title>
+
+    <!-- Bootstrap cdn link -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+<!-- Custom CSS link -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="login-area">
+      <h1 class="text-center">Welcome to Payoneear Bank</h1>
+      <div class="submit-area">
+        <h4>Login</h4>
+        <input type="email" placeholder="enter em@il" class="form-control">
+        <br/>
+        <input type="password" placeholder="enter password" class="form-control">
+        <br>
+        <button id="login" class="btn btn-success">enter</button>
+      </div>
+    </div>
+              <!--  Bank function code started from here -->
+    <div id="transection-area">
+      <h1 class="text-center">Transection Area</h1>
+      <div class="row">
+        <div class="col-md-4 ">
+          <div class="deposit status">
+            <h5>Deposit</h5>
+            <h2>$ <span id="currentDeposit">00</span></h2>
+          </div>
+        </div>
+        <div class="col-md-4 ">
+         <div class="withdraw status">
+          <h5>Withdraw</h5>
+          <h2>$<span id="currentWithdraw">00</span></h2>
+         </div>
+        </div>
+        <div class="col-md-4 ">
+          <div class="balance status">
+            <h5>Balance</h5>
+           <h2>$<span id="currentBalance">1240</span></h2>
+          </div>
+        </div>
+      </div>
+    <!-- deposit and withdraw section code started from here -->
+   <div class="row">
+    <div class="transectionBox col-md-6">
+      <div class="submit-area">
+        <h4>Deposit</h4>
+        <input id="depositAmount" type="text" class="form-control" placeholder="$ amount you want to deposit">
+        <br>
+        <button id="addDeposit" class="btn btn-md btn-success"> Deposit</button>
+      </div>
+    </div>
+    <div class="transectionBox col-md-6">
+      <div class="submit-area">
+        <h4>withdraw</h4>
+       <input id="withdrawAmount" type="text" class="form-control" placeholder="$ amount you want to withdraw">
+       <br>
+       <button id="addWithdraw" class="btn btn-md btn-success"> Withdraw</button>
+      </div>
+    </div>
+   </div>
+   </div>
+<script>
+  // login button event handler
+  var loginBtn = document.getElementById('login');
+  loginBtn.addEventListener('click', function(){
+        const btnClicked = document.getElementById('login-area');
+    btnClicked.style.display = "none";
+        const transectionArea = document.getElementById('transection-area');
+    transectionArea.style.display = "block";
+  });
+
+ //deposit button handler
+const depositBtn = document.getElementById("addDeposit");
+depositBtn.addEventListener('click', function(){
+  const inputAmount = getInputNumber("depositAmount");
+  
+  updateSpanText("currentDeposit",inputAmount);
+  updateSpanText("currentBalance",inputAmount);
+
+  document.getElementById("depositAmount").value = "";
+});
+
+// withdraw button handler
+const withdrawBtn = document.getElementById("addWithdraw");
+withdrawBtn.addEventListener('click', function() {
+  const inputAmount = getInputNumber("withdrawAmount");
+ 
+  updateSpanText("currentWithdraw",inputAmount );
+  updateSpanText("currentBalance", -1 *inputAmount);
+
+  document.getElementById("withdrawAmount").value = "";
+});
+
+
+function getInputNumber(id){
+  const amount       = document.getElementById(id).value ;
+  const amountNumber = parseFloat(amount);
+  return amountNumber     
+}
+function updateSpanText(id,inputAmount) {
+  const current       = document.getElementById(id).innerText;
+  const currentNumber = parseFloat(current);
+  const total         = currentNumber + inputAmount;
+
+  document.getElementById(id).innerText = total;
+}
+
+  </script>
+</body>
+</html>
